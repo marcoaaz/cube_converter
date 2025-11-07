@@ -31,8 +31,8 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
   - **Basic image processing** to allow changing an image pyramid level, tile size, and output brightness
   - **Menus for editing input and output images** according to the data acquisition nomenclature used in the VS200 petrographic slide scaner laboratory at Queensland University of Technology (configured by Marco Acevedo)  
 - Multi-modal z-stack generator
-  - **The input list** allows stacking optical (and truly any image from any instrument) as long as they are pre-registered (aligned), e.g., ray tracing, chemical images, phase map (e.g., multi-modal z-stacks).
-  - **Output pyramidal OME-TIFF files** of ~250 GB can be opened in a few seconds without latency. 
+  - **The input list** allows stacking single optical and/or align images (from any instrument) as long as they have the same X-Y dimensions into multi-modal z-stacks (e.g. ray tracing, chemical images, phase map).
+  - **Interactive output images** thanks to pyramidal OME-TIFF format allowing to read ~250 GB files in a few seconds and without latency. 
   
 ### Image Metadata Extraction
 - **Automatic metadata extraction** from microscopy files:
@@ -48,17 +48,41 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
 
 - **Python** 3.9.13
 - **PyQt5** 5.15.11 for GUI design
-- **pyinstaller** 6.15.0 for compiling
+- **pyinstaller** 6.15.0 for compiling with modified generated main.spec file*
 - **multiprocessing** (included with most Python installations) for parallel processing
 - **Additional libraries**:
-  - `pyvips 3.0.0`* - for enabling extreme processing speed with image pyramid outputs [link](https://pypi.org/project/python-bioformats/)
-  - `javabridge 1.0.19` - CellProfiller tool for opening Java virtual machines within processing cores [link](https://pypi.org/project/javabridge/)
+  - `pyvips 3.0.0`** - for enabling extreme processing speed with image pyramid outputs [link](https://pypi.org/project/python-bioformats/)
+  - `javabridge 1.0.19`*** - CellProfiller tool for opening Java virtual machines within processing cores [link](https://pypi.org/project/javabridge/)
   - `python-bioformats 4.1.0` - for warping Bio-Formats (Java library) within Python [link](https://github.com/Arcadia-Science/readlif)
   - `ome-types 0.6.1` - for read/write OME-TIFF metadata [link](https://pypi.org/project/ome-types/)
 
-*pyvips requires internally defining the path to libvips binaries (Windows DLL) in your PC. I downloaded the folder from [link](https://github.com/libvips/build-win64-mxe/releases/tag/v8.16.0) and unzipped to 'c:/vips-dev-8.16/bin'
+*Ensure the main.spec file contains:
 
-The current version was demonstrated to work on Windows 11 OS.
+    datas=[
+        ("icons", "icons"),
+        ("E:/Alienware_March 22/current work/00-new code May_22/vsiFormatter/vsi_trial1/Lib/site-packages/javabridge/jars/*", "javabridge/jars"), 
+        ("E:/Alienware_March 22/current work/00-new code May_22/vsiFormatter/vsi_trial1/Lib/site-packages/javabridge/*", "javabridge"),
+        ("E:/Alienware_March 22/current work/00-new code May_22/vsiFormatter/vsi_trial1/Lib/site-packages/bioformats/jars/*", "bioformats/jars"),                
+        ("E:/Alienware_March 22/current work/00-new code May_22/vsiFormatter/vsi_trial1/Lib/site-packages/bioformats/*", "bioformats"),
+        ("c:/vips-dev-8.16/bin", "vips"),
+        ("C:/Program Files/Amazon Corretto/jdk1.8.0_462", "jdk_folder_in_bundle")
+        ],
+    hiddenimports=[
+        'xsdata_pydantic_basemodel.hooks', 
+        'xsdata_pydantic_basemodel.hooks.class_type',
+        'bioformats', 'javabridge'
+        ],
+        
+- **pyvips requires internally defining the path to libvips binaries (Windows DLL) in your PC. I downloaded the folder from [link](https://github.com/libvips/build-win64-mxe/releases/tag/v8.16.0) and unzipped to 'c:/vips-dev-8.16/bin'
+- ***javabridge will require a hacky manual modification to work properly: 
+  Within ..\vsiFormatter\vsi_trial1\Lib\site-packages\javabridge\locate.py > find_javahome() > line 76 
+  Change the original line:
+    java_path = os.path.join(app_path, 'java')
+  to
+    java_path = os.path.join(app_path, '_internal/jdk_folder_in_bundle') 
+  This way, you will fully adopt the "main.spec" description logic provided to pyinstaller during compilation.
+
+Note that the current Cube converter version was demonstrated to work on Windows 11 OS.
 
 ---
 
