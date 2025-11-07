@@ -46,14 +46,16 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
 
 ## 🖥️ Requirements*
 
+The current Cube converter version was demonstrated to work on Windows 11 OS.
+
 - **Python** 3.9.13
 - **PyQt5** 5.15.11 for GUI design
 - **pyinstaller** 6.15.0 for compiling with modified generated main.spec file*
 - **multiprocessing** (included with most Python installations) for parallel processing
 - **Additional libraries**:
-  - `pyvips 3.0.0`** - for enabling extreme processing speed with image pyramid outputs [link](https://pypi.org/project/python-bioformats/)
+  - `pyvips 3.0.0`** - for enabling extreme processing speed with image pyramid outputs [link](https://github.com/libvips/pyvips)
   - `javabridge 1.0.19`*** - CellProfiller tool for opening Java virtual machines within processing cores [link](https://pypi.org/project/javabridge/)
-  - `python-bioformats 4.1.0` - for warping Bio-Formats (Java library) within Python [link](https://github.com/Arcadia-Science/readlif)
+  - `python-bioformats 4.1.0` - for warping Bio-Formats (Java library) within Python [link](https://pypi.org/project/python-bioformats/)
   - `ome-types 0.6.1` - for read/write OME-TIFF metadata [link](https://pypi.org/project/ome-types/)
 
 *Ensure the main.spec file contains:
@@ -74,42 +76,60 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
         ],
         
 - **pyvips requires internally defining the path to libvips binaries (Windows DLL) in your PC. I downloaded the folder from [link](https://github.com/libvips/build-win64-mxe/releases/tag/v8.16.0) and unzipped to 'c:/vips-dev-8.16/bin'
-- ***javabridge will require a hacky manual modification to work properly: 
-  Within ..\vsiFormatter\vsi_trial1\Lib\site-packages\javabridge\locate.py > find_javahome() > line 76 
-  Change the original line:
-    java_path = os.path.join(app_path, 'java')
-  to
-    java_path = os.path.join(app_path, '_internal/jdk_folder_in_bundle') 
-  This way, you will fully adopt the "main.spec" description logic provided to pyinstaller during compilation.
+- ***javabridge will require a hacky manual modification to work properly:  
+  Within ..\<your-environment-name>\Lib\site-packages\javabridge\locate.py > find_javahome()  
+  Change line 76 original line: 
 
-Note that the current Cube converter version was demonstrated to work on Windows 11 OS.
+      java_path = os.path.join(app_path, 'java')
+  
+  to
+
+      java_path = os.path.join(app_path, '_internal/jdk_folder_in_bundle')
+  
+  This is required for adopting what was written in the "main.spec" description and is provided to pyinstaller during compilation.  
 
 ---
 
 ## 📁 Versions Available
 
-### ReMInD Full (Remind_v2.27.py)
-- Complete feature set including RDM connectivity
-- UQ InstGateway integration for institutional users
-- Recommended for University of Queensland researchers
-
+### Cube converter v1 (main.py)
+- File to call the functionality and app interface (cubeConverter_v3.py)
+- Suitable for reading and processing VSI files (CellSense format) saved from Evident VS200 slide scanner (at QUT)
+- All metadata extraction features included
+  
 ---
 
 ## ⌨️ Creating the Executable
 
-1. **Install PyInstaller**
+1.  In VSCode or Anaconda, activate <your-environment-name>
+2.  **pip install -r requirements.txt**
+2.  In the terminal, run:
    ```bash
-   pip install pyinstaller
+   pyinstaller main.py
    ```
-2.  Place the python file into its own directory with no spaces
-3.  In Command Prompt navigate to this directory with the script
-4.  Run the following command replacing <scriptname> with your own (or e.g. Remind_v2.27.py)
+5.  Edit the main.spec file (see edits in Requirements section above)
    ```bash
-   pyinstaller --onefile --windowed --name "executablename" --add-data "CZI_MetadataGUI.py;." --add-data "LIF_MetadataGUI.py;." --add-data "ND2_v2a.py;." <scriptname>.py
+   pyinstaller main.spec
    ```
-5.  Your single executable will be within the dist directory that was created.
+6.  The executable will be next to a bundled app folder at:  
+   "..\<your-environment-name>\dist\Cube Converter v1\Cube Converter v1.exe"
 
 
 ## 📦 Packaged Executable
-- The Remind.exe file can be downloaded and is fully self contained for Windows 11
-- If using the custom icon file (provided) you will need to create a shortcut to the Remind.exe to use custom icons in Windows 11
+- Cube Converter v1.exe works for Windows 11 and it is not fully self contained (for efficiency while opening the app)
+- A Terminal will be open to indicate the progress of processing your file
+- An Error handling mechanism pops up if the user inputs a wrong value in the GUI options. For persistent errors, please, send me a screenshot
+
+## Issues and future work
+- This is a beta version that will soon be improved with user feedback
+- I had in mind:
+  - Allowing compatibility with more light microscopy light microscopy formats, e.g., CZI from Zeiss AxioScan Geo (Zeiss Microscopy)
+  - Implementing ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
+- If you are not familiar to coding but you have proposals/ideas, you are welcome to contact me as well. This is open-source :smiley:
+
+## Citing Phase interpreter
+- The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers have contributed to its evolution:
+  - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. https://doi.org/10.3390/min13020156   
+  - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. https://eprints.qut.edu.au/248815/
+  - Burke, T. M., Kamber, B. S., & Rowlings, D. (2025). Microscopic investigation of incipient basalt breakdown in soils: implications for selecting products for enhanced rock weathering [Original Research]. Frontiers in Climate, Volume 7 - 2025. https://doi.org/10.3389/fclim.2025.1572341 
+
