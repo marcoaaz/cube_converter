@@ -125,7 +125,7 @@ The current Cube converter version was demonstrated to work on Windows 11 OS.
 - I had in mind:
   - Allowing compatibility with more light microscopy light microscopy formats, e.g., CZI from Zeiss AxioScan Geo (Zeiss Microscopy)
   - Implementing ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
-- If you are not familiar to coding but you have proposals/ideas, you are welcome to contact me as well. This is open-source :smiley:
+- If you are not familiar to coding but you have proposals/ideas, you are welcome to contact me as well. This is open-source :smile:
 
 ## Citing Phase interpreter
 - The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers have contributed to its evolution:
