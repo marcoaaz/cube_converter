@@ -14,9 +14,9 @@
 
 Cube converter allows microscopists and researchers to process full resolution polarised microscopy experiments configured in Evident [VS200 slide scanner](https://evidentscientific.com/en/products/slide-scanners/vs200) (acquisition routines after Acevedo Zamora & Kamber, 2023). The tool can represent a set of multi-angle polarised images (plane-polarised (PPL) pleochroism and cross-polarised (XPL) birefringence) as summary "ray tracing" (descriptive statistics: max, min, std, mean, index of max/min) images. For example, XPL-max looks the same as XPL circular polarisation without having to install extra optical components in your microscope. 
 
-These images are friendlier for pixel/object classification/segmentation tasks due to the homogenisation of colours regarless of "virtual" stage rotation. Segmentation has been demonstrated to work with [QuPath](https://qupath.github.io/) ([Bankhead et al., 2017](https://www.nature.com/articles/s41598-017-17204-5)) using the [pixel classifier](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) tool. Segmenting multi-channel images with reflected light (RL), PPL-max, and XPL-max only has achieved results comparable to SEM-based Automated mineralogy systems when having a "friendly" mineralogy and colour contrast (~invariant to crystal orientation).
+These images are friendlier for pixel/object classification/segmentation tasks due to the homogenisation of colours regarless of "virtual" stage rotation. Segmentation has been demonstrated to work with [QuPath](https://qupath.github.io/) ([Bankhead et al., 2017](https://www.nature.com/articles/s41598-017-17204-5)) using the [pixel classifier](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) tool. Segmenting multi-channel images with reflected light (RL), PPL-max, and XPL-max only has achieved results comparable to SEM-based Automated mineralogy systems when having contrasting mineralogy (that ~invariant to crystal orientation).
 
-Locally, the output intermediate/final (original scans and ray tracing images) images are saved in a structured folder sequence for each input VSI file input (see interface). The exporation process records the data acquisition and processing metadata for potential future documentation in [OMERO Server](https://www.openmicroscopy.org/omero/). 
+Locally, the output intermediate/final images are saved in a structured folder sequence for each input VSI file input (original scans and ray tracing images). The exporation process records the data acquisition and processing metadata for potential future documentation with [OMERO Server](https://www.openmicroscopy.org/omero/). 
 
 <img width=100% height=100% alt="Image" src="https://github.com/user-attachments/assets/2c76b648-eaba-449d-af6f-57b0643c1d71" />
 
@@ -136,9 +136,10 @@ I acknowledge that most users will not have a VS200 slide scanner and our data a
 - If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out. 
 -Support for Mac OS and Linux is out of my expertise
 
-## Citing Phase interpreter
+## Related papers
 
-- The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers already have contributed to its evolution:
+The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers already have contributed to its evolution:
+
   - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. [https://doi.org/10.3390/min13020156   ](https://doi.org/10.3390/min13020156   )
   - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. [https://eprints.qut.edu.au/248815/](https://eprints.qut.edu.au/248815/)
   - Burke, T. M., Kamber, B. S., & Rowlings, D. (2025). Microscopic investigation of incipient basalt breakdown in soils: implications for selecting products for enhanced rock weathering [Original Research]. Frontiers in Climate, Volume 7 - 2025. [https://doi.org/10.3389/fclim.2025.1572341](https://doi.org/10.3389/fclim.2025.1572341) 
