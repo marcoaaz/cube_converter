@@ -1,5 +1,5 @@
 # Cube Converter
-# The package to process petrographic microscopy multi-pol whole-slide images as ray traced scans and 'virtual' z-stacks for next generation image analysis pipelines.
+# The package to process petrographic microscopy multi-angle whole-slide images as ray traced images and 'virtual' z-stacks for next generation image analysis pipelines.
 
 **Version**: 1 (beta)  
 **Author**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
@@ -26,7 +26,7 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
 ## 🚀 Features
 
 ### Core Functionality
-- **Graphical User Interface (GUI) following two steps** for processing raw optical microscopy images without having to pay for a license (proprietary instrument software is 10K AUD)
+- **Graphical User Interface (GUI) following two steps** for processing raw images without having licensed software (the instrument software costs 10K AUD)
 - **High reliability and performance** due to parallelised implementation
 - Polarised microscopy processor
   - **Basic image processing** to allow changing an image pyramid level, tile size, and output brightness
@@ -47,7 +47,7 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
 
 ## 🖥️ Requirements*
 
-The current Cube converter version was demonstrated to work on Windows 11 OS.
+The current Cube converter version was demonstrated to work in Windows 11 OS.
 
 - **Python** 3.9.13
 - **PyQt5** 5.15.11 for running GUI (designed with PyQt5-tools)
@@ -89,7 +89,7 @@ The current Cube converter version was demonstrated to work on Windows 11 OS.
   
   This is required for adopting what was written in the "main.spec" description and is provided to pyinstaller during compilation.  
 
-I acknowledge that most users will not have a VS200 slide scanner. Two laboratories within Queensland already have the acquisition routines required ([CARF](https://www.qut.edu.au/research/why-qut/infrastructure/central-analytical-research-facility), [Centre for Microscopy and Microanalysis](https://cmm.centre.uq.edu.au/olympus-vs-200-optical-microscope)). Under a scientific collaboration project, I could implement your own scanner for compatibility with Cube converter software.
+I acknowledge that most users will not have a VS200 slide scanner and our data acquisition routines. These are available in two laboratories in Queensland, see ([CARF](https://www.qut.edu.au/research/why-qut/infrastructure/central-analytical-research-facility), [Centre for Microscopy and Microanalysis](https://cmm.centre.uq.edu.au/olympus-vs-200-optical-microscope)). Under a scientific collaboration project, I could visit you and implement your own scanner and/or make it compatible with Cube converter software.
 
 
 ---
@@ -130,6 +130,7 @@ I acknowledge that most users will not have a VS200 slide scanner. Two laborator
 
 - This is a beta version that will soon be improved with user feedback
 - I had in mind:
+  - Cloud implementation with more cores
   - Using Bio-Formats, the software can support many more light microscopy light microscopy [formats](https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html), e.g., CZI from Zeiss [AxioScan Geo](https://www.zeiss.com/microscopy/en/products/imaging-systems/axioscan-7.html) (Zeiss Microscopy)
   - Implementing ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
 - If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out. 
@@ -138,7 +139,7 @@ I acknowledge that most users will not have a VS200 slide scanner. Two laborator
 ## Citing Phase interpreter
 
 - The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers already have contributed to its evolution:
-  - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. https://doi.org/10.3390/min13020156   
-  - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. https://eprints.qut.edu.au/248815/
-  - Burke, T. M., Kamber, B. S., & Rowlings, D. (2025). Microscopic investigation of incipient basalt breakdown in soils: implications for selecting products for enhanced rock weathering [Original Research]. Frontiers in Climate, Volume 7 - 2025. https://doi.org/10.3389/fclim.2025.1572341 
+  - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. [https://doi.org/10.3390/min13020156   ](https://doi.org/10.3390/min13020156   )
+  - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. [https://eprints.qut.edu.au/248815/](https://eprints.qut.edu.au/248815/)
+  - Burke, T. M., Kamber, B. S., & Rowlings, D. (2025). Microscopic investigation of incipient basalt breakdown in soils: implications for selecting products for enhanced rock weathering [Original Research]. Frontiers in Climate, Volume 7 - 2025. [https://doi.org/10.3389/fclim.2025.1572341](https://doi.org/10.3389/fclim.2025.1572341) 
 
