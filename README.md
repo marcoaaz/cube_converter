@@ -50,7 +50,7 @@ Locally, the output intermediate/final (original scans and ray tracing images) i
 The current Cube converter version was demonstrated to work on Windows 11 OS.
 
 - **Python** 3.9.13
-- **PyQt5** 5.15.11 for GUI design
+- **PyQt5** 5.15.11 for running GUI (designed with PyQt5-tools)
 - **pyinstaller** 6.15.0 for compiling with modified generated main.spec file*
 - **multiprocessing** (included with most Python installations) for parallel processing
 - **Additional libraries**:
@@ -97,6 +97,7 @@ I acknowledge that most users will not have a VS200 slide scanner. Two laborator
 ## 📁 Versions Available
 
 ### Cube converter v1 (main.py)
+
 - File to call the functionality and app interface (cubeConverter_v3.py)
 - Suitable for reading and processing VSI files (CellSense format) saved from Evident VS200 slide scanner (at QUT)
 - All metadata extraction features included
@@ -120,18 +121,22 @@ I acknowledge that most users will not have a VS200 slide scanner. Two laborator
 
 
 ## 📦 Packaged Executable
+
 - Cube Converter v1.exe works for Windows 11 and it is not fully self contained (for efficiency while opening the app)
 - A Terminal will be open to indicate the progress of processing your file
 - An Error handling mechanism pops up if the user inputs a wrong value in the GUI options. For persistent errors, please, send me a screenshot
 
 ## Issues and future work
+
 - This is a beta version that will soon be improved with user feedback
 - I had in mind:
   - Using Bio-Formats, the software can support many more light microscopy light microscopy [formats](https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html), e.g., CZI from Zeiss [AxioScan Geo](https://www.zeiss.com/microscopy/en/products/imaging-systems/axioscan-7.html) (Zeiss Microscopy)
   - Implementing ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
 - If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out. 
+-Support for Mac OS and Linux is out of my expertise
 
 ## Citing Phase interpreter
+
 - The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers already have contributed to its evolution:
   - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. https://doi.org/10.3390/min13020156   
   - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. https://eprints.qut.edu.au/248815/
