@@ -18,8 +18,9 @@ Segmentation has been demonstrated to work with [QuPath](https://qupath.github.i
 
 Locally, the output intermediate/final images are saved in a structured folder sequence for each input VSI file input (original scans and ray tracing images). The exporation process records the data acquisition and processing metadata for potential future documentation with [OMERO Server](https://www.openmicroscopy.org/omero/). 
 
-<img width=100% height=100% alt="Image" src="https://github.com/user-attachments/assets/2c76b648-eaba-449d-af6f-57b0643c1d71" />
-
+<p align="center">
+  <img width=70% height=70% alt="Image" src="https://github.com/user-attachments/assets/b76cd334-3220-4b13-b6d3-80dd5e12c793" />
+</p>
 
 ---
 
