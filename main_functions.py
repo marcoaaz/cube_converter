@@ -408,6 +408,7 @@ def reader_section(image_path, series, tileSizeX, sizeC, folder2):
 				file_temp = os.path.join(output_1, name_str)
 				image_output = pyvips.Image.new_from_array(buf)                            
 				image_output.write_to_file(file_temp) 
+
 	reader.close()
 	
 	atexit.register(javabridge.kill_vm)
@@ -510,8 +511,7 @@ def process_tile_rt(df2, x, y, z, series_span2, sel_stats, modality_str, n_chann
 		im_temp = pyvips.Image.new_from_file(path_temp)    							
 		tile_temp[:, :, :, i] = im_temp.numpy()							
 
-	tile_temp2 = calculate_statistic(tile_temp, sel_stats)						
-	
+	tile_temp2 = calculate_statistic(tile_temp, sel_stats)		
 	
 	#Write tiles
 	name_str = f'tile_x{x:03.0f}_y{y:03.0f}_z{z:03.0f}_{sel_stats}.tif' #Stitching plugin
@@ -626,7 +626,13 @@ def join_rt_tiles_function(workingDir1, statistic_list, percentOut):
 		for sel_stats in statistic_list:
 			
 			print(f"{modality_str} montage {sel_stats}")
-			condition = (sel_stats == "std") or (sel_stats == "minIndex") or (sel_stats == "maxIndex")			
+			condition = (
+				(sel_stats == "std") or 
+				(sel_stats == "minIndex") or 
+				(sel_stats == "maxIndex") or 
+				(sel_stats == "edges") or
+				(sel_stats == "modulation")
+				)			
 
 			for z in z_list:
 				
@@ -859,23 +865,20 @@ def generate_individualImages(fileList2, pixel_size_sel, tileSize, output_path):
 
 	#info
 	im_temp = pyvips.Image.new_from_file(fileList2[0]) #lazy loading			
-	size_x = im_temp.width 
-	size_y = im_temp.height		
+		
 
 	#Default dimensions   	
-	z_count = 1
-	t_count = 1
+	
 	dimension_order = "XYCZT" #equal to original VSI file
 	tileSizeX = tileSize #512
-	tileSizeY = tileSizeX	
-	
-	c_count = 3 #forced
-	dimension_sizes = [size_x, size_y, c_count, z_count, t_count]
-	
+	tileSizeY = tileSizeX		
 	
 	for file in fileList2:  		
 		
 		im_temp = pyvips.Image.new_from_file(file)                  						
+		size_x = im_temp.width 
+		size_y = im_temp.height					
+
 		im_temp2, c_count_original = read_img_convention(im_temp, file) #not allowed to have 1 channel		
 		
 		r, g, b = im_temp2.bandsplit()  
@@ -887,15 +890,18 @@ def generate_individualImages(fileList2, pixel_size_sel, tileSize, output_path):
 	
 		#Save as pyramidal OME-TIFF  	
 		file_output = os.path.basename(file)	 #requirement		
-		file_path = os.path.join(output_folder1, file_output)
-		montage_roll = ready_for_OME(channel_list, file_output, dimension_order, dimension_sizes, pixel_size_sel)		
+		file_path = os.path.join(output_folder1, file_output)		
+		dimension_sizes = [size_x, size_y, 3, 1, 1]
+
+		montage_roll = ready_for_OME(channel_list, file_output, dimension_order, 
+							   dimension_sizes, pixel_size_sel)		
 		
 		montage_roll.tiffsave(file_path, compression="lzw", tile=True, 
 					tile_width= tileSizeX, tile_height=tileSizeY,
 					pyramid=True, subifd=True, bigtiff=True) #"lzw"
 		
 
-def generate_dz(fileList2, pixel_size_sel, tileSize, output_path):
+def generate_dz(fileList2, tileSize, output_path):
 
 	output_folder = os.path.dirname(output_path)
 	file_output = os.path.basename(output_path)
@@ -923,6 +929,52 @@ def generate_dz(fileList2, pixel_size_sel, tileSize, output_path):
 
 	return metadata
 	
+def generate_flatImages(fileList2, output_path):
+
+	output_folder = os.path.dirname(output_path)
+	file_output = os.path.basename(output_path)
+	filename_without_extension = os.path.splitext(file_output)[0]
+
+	output_folder1 = os.path.join(output_folder, f'{filename_without_extension}_flat')
+	mkdir2(output_folder1)	
+	
+	for file in fileList2:  		
+		
+		im_temp = pyvips.Image.new_from_file(file) #lazy loading                 						
+		im_temp1, c_count_original = read_img_convention(im_temp, file) #not allowed to have 1 channel				
+		
+		# im_temp2 = im_temp1				
+		im_temp2 = im_temp1.copy(interpretation="srgb")
+
+		#Save as flat image  	
+		file_output1 = os.path.basename(file)
+		filename_without_extension1 = os.path.splitext(file_output1)[0]		
+		file_path = os.path.join(output_folder1, filename_without_extension1 + '.tif')		
+
+		#compression="jpeg", 'deflate' (huge files), 'lzw', 'none',		
+		# The photometric interpretation will be RGB by default for 3-band uchar images
+
+		im_temp2.tiffsave(file_path, 					
+					compression="lzw", 
+					tile=False,
+					pyramid=False,  
+					bitdepth=8,
+					bigtiff=False,
+					)  				
+		
+		# im_temp2.tiffsave(			
+		# 	file_path,
+		# 	compression="deflate",
+		# 	predictor="horizontal",
+		# 	tile=True,
+		# 	tile_width=512,
+		# 	tile_height=512,
+		# 	bigtiff=True,
+		# 	properties=True # Ensures vips metadata is written to the header
+		# )
+
+	return
+
 #endregion
 
 #region Save Deep Zoom tiles

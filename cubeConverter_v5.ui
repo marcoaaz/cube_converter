@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1153</width>
-    <height>1015</height>
+    <width>1301</width>
+    <height>932</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@ background-color: rgb(240,240,240);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_19">
+   <layout class="QGridLayout" name="gridLayout_20">
     <item row="0" column="0">
      <widget class="QFrame" name="frame_3">
       <property name="styleSheet">
@@ -385,150 +385,149 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                       <number>3</number>
                      </property>
                      <item>
-                      <widget class="QGroupBox" name="groupBox_3">
-                       <property name="title">
-                        <string>Montage outputs</string>
-                       </property>
-                       <layout class="QGridLayout" name="gridLayout_8">
-                        <item row="0" column="0">
-                         <widget class="QScrollArea" name="scrollArea_2">
-                          <property name="frameShape">
-                           <enum>QFrame::Panel</enum>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Raised</enum>
-                          </property>
-                          <property name="lineWidth">
-                           <number>2</number>
-                          </property>
-                          <property name="widgetResizable">
-                           <bool>true</bool>
-                          </property>
-                          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-                           <property name="geometry">
-                            <rect>
-                             <x>0</x>
-                             <y>0</y>
-                             <width>218</width>
-                             <height>281</height>
-                            </rect>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_10">
-                            <item row="0" column="0">
-                             <widget class="QWidget" name="widget_2" native="true">
-                              <layout class="QGridLayout" name="gridLayout_11">
-                               <property name="leftMargin">
-                                <number>3</number>
-                               </property>
-                               <property name="topMargin">
-                                <number>3</number>
-                               </property>
-                               <property name="rightMargin">
-                                <number>3</number>
-                               </property>
-                               <property name="bottomMargin">
-                                <number>3</number>
-                               </property>
-                               <property name="verticalSpacing">
-                                <number>1</number>
-                               </property>
-                               <item row="2" column="0">
-                                <widget class="QCheckBox" name="checkBox_13">
-                                 <property name="font">
-                                  <font>
-                                   <family>Arial</family>
-                                   <pointsize>12</pointsize>
-                                  </font>
+                      <layout class="QVBoxLayout" name="verticalLayout_16" stretch="3,2">
+                       <item>
+                        <widget class="QGroupBox" name="groupBox_3">
+                         <property name="title">
+                          <string>Montage outputs</string>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_8">
+                          <item row="0" column="0">
+                           <widget class="QScrollArea" name="scrollArea_2">
+                            <property name="frameShape">
+                             <enum>QFrame::Panel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <property name="lineWidth">
+                             <number>2</number>
+                            </property>
+                            <property name="widgetResizable">
+                             <bool>true</bool>
+                            </property>
+                            <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                             <property name="geometry">
+                              <rect>
+                               <x>0</x>
+                               <y>0</y>
+                               <width>236</width>
+                               <height>184</height>
+                              </rect>
+                             </property>
+                             <layout class="QGridLayout" name="gridLayout_10">
+                              <item row="0" column="0">
+                               <widget class="QWidget" name="widget_2" native="true">
+                                <layout class="QGridLayout" name="gridLayout_11">
+                                 <property name="leftMargin">
+                                  <number>3</number>
                                  </property>
-                                 <property name="text">
-                                  <string>Plane-polarised light 
+                                 <property name="topMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="rightMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="bottomMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="verticalSpacing">
+                                  <number>1</number>
+                                 </property>
+                                 <item row="4" column="0">
+                                  <widget class="QCheckBox" name="checkBox_13">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Plane-polarised light 
 (PPL)</string>
-                                 </property>
-                                 <property name="checked">
-                                  <bool>true</bool>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item row="3" column="0">
-                                <widget class="QCheckBox" name="checkBox_14">
-                                 <property name="font">
-                                  <font>
-                                   <family>Arial</family>
-                                   <pointsize>12</pointsize>
-                                  </font>
-                                 </property>
-                                 <property name="text">
-                                  <string>Cross-polarised light 
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item row="7" column="0">
+                                  <widget class="QCheckBox" name="checkBox_12">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Ray tracing</string>
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item row="5" column="0">
+                                  <widget class="QCheckBox" name="checkBox_14">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Cross-polarised light 
 (XPL)</string>
-                                 </property>
-                                 <property name="checked">
-                                  <bool>true</bool>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item row="4" column="0">
-                                <widget class="QCheckBox" name="checkBox_12">
-                                 <property name="font">
-                                  <font>
-                                   <family>Arial</family>
-                                   <pointsize>12</pointsize>
-                                  </font>
-                                 </property>
-                                 <property name="text">
-                                  <string>Ray tracing</string>
-                                 </property>
-                                 <property name="checked">
-                                  <bool>true</bool>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item row="1" column="0">
-                                <widget class="QCheckBox" name="checkBox_4">
-                                 <property name="font">
-                                  <font>
-                                   <family>Arial</family>
-                                   <pointsize>12</pointsize>
-                                  </font>
-                                 </property>
-                                 <property name="text">
-                                  <string>Reflected light 
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item row="1" column="0">
+                                  <widget class="QCheckBox" name="checkBox_3">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>All original scans</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item row="6" column="0">
+                                  <widget class="QCheckBox" name="checkBox_4">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Reflected light 
 (unpolarised)</string>
-                                 </property>
-                                 <property name="checked">
-                                  <bool>true</bool>
-                                 </property>
-                                </widget>
-                               </item>
-                               <item row="5" column="0">
-                                <widget class="QCheckBox" name="checkBox_3">
-                                 <property name="font">
-                                  <font>
-                                   <family>Arial</family>
-                                   <pointsize>12</pointsize>
-                                  </font>
-                                 </property>
-                                 <property name="text">
-                                  <string>All original scans 
-(provides flexibility)</string>
-                                 </property>
-                                </widget>
-                               </item>
-                              </layout>
-                             </widget>
-                            </item>
-                           </layout>
-                          </widget>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_11">
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                </layout>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
                        <item>
                         <widget class="QGroupBox" name="groupBox">
                          <property name="title">
-                          <string>Multi-angle polarisation</string>
+                          <string>Ray tracing inputs (multi-angle polarisation)</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -571,7 +570,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>199</width>
+                               <width>236</width>
                                <height>67</height>
                               </rect>
                              </property>
@@ -642,10 +641,14 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                          </layout>
                         </widget>
                        </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="1,1">
                        <item>
                         <widget class="QGroupBox" name="groupBox_2">
                          <property name="title">
-                          <string>Ray tracing statistics</string>
+                          <string>Wave descriptive statistics</string>
                          </property>
                          <layout class="QGridLayout" name="gridLayout_7">
                           <item row="0" column="0">
@@ -678,9 +681,9 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                              <property name="geometry">
                               <rect>
                                <x>0</x>
-                               <y>0</y>
-                               <width>199</width>
-                               <height>189</height>
+                               <y>-7</y>
+                               <width>229</width>
+                               <height>141</height>
                               </rect>
                              </property>
                              <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -735,35 +738,6 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QCheckBox" name="checkBox_6">
-                                   <property name="font">
-                                    <font>
-                                     <family>Arial</family>
-                                     <pointsize>12</pointsize>
-                                    </font>
-                                   </property>
-                                   <property name="text">
-                                    <string>Maximum index</string>
-                                   </property>
-                                   <property name="checked">
-                                    <bool>true</bool>
-                                   </property>
-                                  </widget>
-                                 </item>
-                                 <item>
-                                  <widget class="QCheckBox" name="checkBox_8">
-                                   <property name="font">
-                                    <font>
-                                     <family>Arial</family>
-                                     <pointsize>12</pointsize>
-                                    </font>
-                                   </property>
-                                   <property name="text">
-                                    <string>Minimum index</string>
-                                   </property>
-                                  </widget>
-                                 </item>
-                                 <item>
                                   <widget class="QCheckBox" name="checkBox_10">
                                    <property name="font">
                                     <font>
@@ -812,6 +786,137 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                          </layout>
                         </widget>
                        </item>
+                       <item>
+                        <widget class="QGroupBox" name="groupBox_6">
+                         <property name="title">
+                          <string>Spectral and morphological analysis</string>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_19">
+                          <item row="0" column="0">
+                           <widget class="QScrollArea" name="scrollArea_6">
+                            <property name="maximumSize">
+                             <size>
+                              <width>250</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <property name="frameShape">
+                             <enum>QFrame::Panel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <property name="lineWidth">
+                             <number>2</number>
+                            </property>
+                            <property name="verticalScrollBarPolicy">
+                             <enum>Qt::ScrollBarAsNeeded</enum>
+                            </property>
+                            <property name="sizeAdjustPolicy">
+                             <enum>QAbstractScrollArea::AdjustToContents</enum>
+                            </property>
+                            <property name="widgetResizable">
+                             <bool>true</bool>
+                            </property>
+                            <widget class="QWidget" name="scrollAreaWidgetContents_6">
+                             <property name="geometry">
+                              <rect>
+                               <x>0</x>
+                               <y>0</y>
+                               <width>229</width>
+                               <height>117</height>
+                              </rect>
+                             </property>
+                             <layout class="QVBoxLayout" name="verticalLayout_17">
+                              <item>
+                               <widget class="QWidget" name="widget_6" native="true">
+                                <layout class="QVBoxLayout" name="verticalLayout_18">
+                                 <property name="spacing">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="leftMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="topMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="rightMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <property name="bottomMargin">
+                                  <number>3</number>
+                                 </property>
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_6">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Maximum index</string>
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_8">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Minimum index</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_20">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Modulation (POAM)</string>
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_21">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Grain boundaries</string>
+                                   </property>
+                                   <property name="checked">
+                                    <bool>true</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                </layout>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
                       </layout>
                      </item>
                     </layout>
@@ -830,7 +935,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                      </font>
                     </property>
                     <property name="text">
-                     <string>Brightness capping</string>
+                     <string>Contrast stretching</string>
                     </property>
                     <property name="wordWrap">
                      <bool>true</bool>
@@ -862,7 +967,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                      </font>
                     </property>
                     <property name="text">
-                     <string>% percentile (on std and index)</string>
+                     <string>% percentile cap (on std and index)</string>
                     </property>
                     <property name="wordWrap">
                      <bool>true</bool>
@@ -1545,7 +1650,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="0" column="0">
-               <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,10,4,1,0,0">
+               <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,8,4,1,0,0">
                 <item>
                  <widget class="QLabel" name="title_2">
                   <property name="minimumSize">
@@ -1754,7 +1859,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                        <item>
                         <widget class="QGroupBox" name="groupBox_4">
                          <property name="title">
-                          <string>Pyramid format</string>
+                          <string>Pyramid format (interpretation)</string>
                          </property>
                          <layout class="QGridLayout" name="gridLayout_4">
                           <item row="0" column="0">
@@ -1791,8 +1896,8 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>217</width>
-                               <height>76</height>
+                               <width>229</width>
+                               <height>89</height>
                               </rect>
                              </property>
                              <layout class="QGridLayout" name="gridLayout_16">
@@ -1855,6 +1960,22 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                                    </property>
                                   </widget>
                                  </item>
+                                 <item row="2" column="0">
+                                  <widget class="QCheckBox" name="checkBox_19">
+                                   <property name="font">
+                                    <font>
+                                     <family>Arial</family>
+                                     <pointsize>12</pointsize>
+                                    </font>
+                                   </property>
+                                   <property name="text">
+                                    <string>Flat image (RGB)</string>
+                                   </property>
+                                   <property name="checked">
+                                    <bool>false</bool>
+                                   </property>
+                                  </widget>
+                                 </item>
                                 </layout>
                                </widget>
                               </item>
@@ -1868,7 +1989,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                        <item>
                         <widget class="QGroupBox" name="groupBox_5">
                          <property name="title">
-                          <string>Dimensionality</string>
+                          <string>Export type</string>
                          </property>
                          <layout class="QGridLayout" name="gridLayout_18">
                           <item row="0" column="0">
@@ -1905,8 +2026,8 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                               <rect>
                                <x>0</x>
                                <y>0</y>
-                               <width>216</width>
-                               <height>76</height>
+                               <width>246</width>
+                               <height>78</height>
                               </rect>
                              </property>
                              <layout class="QGridLayout" name="gridLayout_14">
@@ -2186,34 +2307,34 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="title">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>9</pointsize>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="whatsThis">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QFrame[objectName= &quot;frame&quot;]{background-color: rgb(220,220,220);}</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;The software Step (1) processes polarised optical microscopy scans and Step (2) stacks multi-modal images as pyramidal OME-TIFF format that can be opened in OMERO web-server. Step (1) pyramid level is specified in '../*_pyramid_sizes.csv' containing the pixel calibration. All inputs (in proprietary format) and outputs (in open-source) can be opened in QuPath software and Evident VS200 software suite. Step (2) pre-requisite is doing image alignment (or registration) in ImageJ-Fiji BigWarp plugin or QuPath Warpy extension that supports OME-TIFF. &lt;/p&gt;&lt;p&gt;Step (1) inputs need to follow the acquisition sequences of QUT VS200 petrographic slide scanner by Acevedo and Kamber (2023). The current source code repository (https://github.com/marcoaaz/cube_converter) updates the original scripts (https://github.com/marcoaaz/Acevedo-Kamber) as a pyvips (https://github.com/libvips/pyvips) implementation. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <widget class="QLabel" name="title">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>9</pointsize>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QFrame[objectName= &quot;frame&quot;]{background-color: rgb(220,220,220);}</string>
+             </property>
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Step (1) inputs must follow the acquisition sequences of QUT VS200 petrographic slide scanner by Acevedo and Kamber (2023). Step (1) processes polarised optical microscopy scans and Step (2) stacks multi-modal images as pyramidal OME-TIFF format that can be opened in OMERO web-server. Step (1) pyramid level pixel calibration is specified in '../*_pyramid_sizes.csv'. All inputs (in proprietary format) and outputs (OME-TIFF open-source format) can be opened in QuPath and/or Evident VS200 software suite. Step (2) pre-requisite is working with aligned images (ImageJ BigWarp; QuPath Warpy). For reproducibility, contrast stretching only applies to min/max index, standard deviation, modulation, and grain boundary images. The source code (https://github.com/marcoaaz/cube_converter) updates the prior repository (https://github.com/marcoaaz/Acevedo-Kamber) with a &lt;span style=&quot; font-weight:700;&quot;&gt;pyvips&lt;/span&gt; (https://github.com/libvips/pyvips) implementation. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_15">
              <item>
@@ -2253,7 +2374,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                   </font>
                  </property>
                  <property name="text">
-                  <string>Image converter v1.0 (beta), Date: 10-Dec-25</string>
+                  <string>Image converter v1.0 (beta), Date: 11-Feb-26</string>
                  </property>
                  <property name="wordWrap">
                   <bool>true</bool>
@@ -2303,9 +2424,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
                   </font>
                  </property>
                  <property name="text">
-                  <string>Citations:
- https://doi.org/10.3390/min13020156 
- https://doi.org/10.1111/jmi.13284</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Citations:&lt;/p&gt;&lt;p&gt;Ray tracing: https://doi.org/10.3390/min13020156 &lt;/p&gt;&lt;p&gt;POAM: https://doi.org/10.1111/jmi.13284&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="wordWrap">
                   <bool>true</bool>
@@ -2399,7 +2518,7 @@ QPushButton[objectName=&quot;Clear&quot;]{background-color: rgba(40,40,240,100);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1153</width>
+     <width>1301</width>
      <height>22</height>
     </rect>
    </property>

@@ -18,7 +18,7 @@ Written in python 3.9.13 (vsi_trial1)
 '''
 #Dependencies
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
-from cubeConverter_v4 import Ui_MainWindow #relative path
+from cubeConverter_v5 import Ui_MainWindow #relative path
 
 class Window(QMainWindow, Ui_MainWindow):
 
@@ -60,36 +60,27 @@ class Window(QMainWindow, Ui_MainWindow):
 		#checkboxes
 		self.items_output = ['reflected', 'ppl', 'xpl', 'rayTracing']  #update manually
 		self.items_rt = ['ppl', 'xpl']
-		self.items_calculation = ['max', 'min', 'maxIndex']
+		self.items_calculation = ['max', 'min', 'maxIndex', 'modulation', 'edges']
 		self.items_format = ['ometiff']
 		self.items_type = ['zstack']
 		#widget list
 		self.list_widget = [] #z-stack input
 		self.list_widget_vsi = [] #vsi input
+		#radio buttons
 		self.option1 = 1 #delete intermediate files
 
 		#Define functionality     
-		
+		#Build input lists, connect stateChanged signal to a common handler
+
 		#left GUI
-		# self.pushButton_2.clicked.connect(self.open_file_dialog) #left  
+		
 		self.Add_2.clicked.connect(self.browse_files2)
 		self.toolButton_3.clicked.connect(self.move_item_up2)
 		self.toolButton_4.clicked.connect(self.move_item_down2)
 		self.Remove_2.clicked.connect(self.remove_selected_item2)
 		self.Clear_2.clicked.connect(self.remove_all_items2)			
-		self.pushButton_7.clicked.connect(self.runningFunction) 		 
-
-		#right GUI		
-		self.Add.clicked.connect(self.browse_files)
-		self.toolButton.clicked.connect(self.move_item_up)
-		self.toolButton_2.clicked.connect(self.move_item_down)
-		self.Remove.clicked.connect(self.remove_selected_item)
-		self.Clear.clicked.connect(self.remove_all_items)				
-		self.pushButton_5.clicked.connect(self.open_folder_dialog) 
-		self.pushButton_8.clicked.connect(self.runningFunction2) 		
-		
-		#Build input lists
-		#connect stateChanged signal to a common handler
+		self.pushButton_7.clicked.connect(self.runningFunction) 
+	
 		self.checkBox_3.stateChanged.connect(lambda state, item="originals": self.update_list(state, item))
 		self.checkBox_4.stateChanged.connect(lambda state, item="reflected": self.update_list(state, item))		
 		self.checkBox_13.stateChanged.connect(lambda state, item="ppl": self.update_list(state, item))
@@ -107,17 +98,15 @@ class Window(QMainWindow, Ui_MainWindow):
 		self.checkBox_11.stateChanged.connect(lambda state, item="median": self.update_list3(state, item))
 		self.checkBox_9.stateChanged.connect(lambda state, item="std": self.update_list3(state, item))      
 
-		self.checkBox_17.stateChanged.connect(lambda state, item="ometiff": self.update_list4(state, item))
-		self.checkBox_18.stateChanged.connect(lambda state, item="dz": self.update_list4(state, item))
+		self.checkBox_20.stateChanged.connect(lambda state, item="modulation": self.update_list3(state, item))
+		self.checkBox_21.stateChanged.connect(lambda state, item="edges": self.update_list3(state, item))
 
-		self.checkBox_15.stateChanged.connect(lambda state, item="zstack": self.update_list5(state, item))
-		self.checkBox_16.stateChanged.connect(lambda state, item="individuals": self.update_list5(state, item))
-
+		self.radioButton_4.toggled.connect(self.get_selected_option) #delete intermediate files
+		
 		# High-level enabling  
-		self.checkBox_3.toggled.connect(self.on_control_checkbox_toggled) #all
-		self.checkBox_12.toggled.connect(self.on_control_checkbox_toggled2) #rt
+		self.checkBox_3.toggled.connect(self.on_control_checkbox_toggled) #all outputs
+		self.checkBox_12.toggled.connect(self.on_control_checkbox_toggled2) #ray tracing
 
-		# Initialize the state of the target checkbox		
 		self.checkBox_4.setEnabled(not self.checkBox_3.isChecked())		
 		self.checkBox_13.setEnabled(not self.checkBox_3.isChecked())
 		self.checkBox_14.setEnabled(not self.checkBox_3.isChecked())
@@ -130,6 +119,29 @@ class Window(QMainWindow, Ui_MainWindow):
 		self.checkBox_10.setEnabled(self.checkBox_12.isChecked())
 		self.checkBox_11.setEnabled(self.checkBox_12.isChecked())
 		self.checkBox_9.setEnabled(self.checkBox_12.isChecked())
+		self.checkBox_20.setEnabled(self.checkBox_12.isChecked()) 
+		self.checkBox_21.setEnabled(self.checkBox_12.isChecked())
+
+		#right GUI		
+		
+		self.Add.clicked.connect(self.browse_files)
+		self.toolButton.clicked.connect(self.move_item_up)
+		self.toolButton_2.clicked.connect(self.move_item_down)
+		self.Remove.clicked.connect(self.remove_selected_item)
+		self.Clear.clicked.connect(self.remove_all_items)				
+		self.pushButton_5.clicked.connect(self.open_folder_dialog) 
+		self.pushButton_8.clicked.connect(self.runningFunction2) 	
+
+		self.checkBox_17.stateChanged.connect(lambda state, item="ometiff": self.update_list4(state, item))
+		self.checkBox_18.stateChanged.connect(lambda state, item="dz": self.update_list4(state, item))
+		self.checkBox_19.stateChanged.connect(lambda state, item="flat": self.update_list4(state, item))
+
+		self.checkBox_15.stateChanged.connect(lambda state, item="zstack": self.update_list5(state, item))
+		self.checkBox_16.stateChanged.connect(lambda state, item="individuals": self.update_list5(state, item))
+
+#endregion 
+
+#region Left GUI functions	
 
 	def on_control_checkbox_toggled(self, checked):
 		# Set the enabled state of the target checkbox based on the controlling checkbox's state
@@ -148,10 +160,8 @@ class Window(QMainWindow, Ui_MainWindow):
 		self.checkBox_10.setEnabled(checked)
 		self.checkBox_11.setEnabled(checked)
 		self.checkBox_9.setEnabled(checked)
-
-	#endregion 
-
-	#region Left GUI functions	
+		self.checkBox_20.setEnabled(checked)
+		self.checkBox_21.setEnabled(checked)
 
 	def browse_files2(self):
 		# Open a file dialog to select files
@@ -228,7 +238,8 @@ class Window(QMainWindow, Ui_MainWindow):
 			if item_value in self.items_calculation:
 				self.items_calculation.remove(item_value)	   
 	
-	def get_selected_option(self): #save recoloured
+	#radio buttons
+	def get_selected_option(self): #delete intermediate files
 		if self.radioButton_4.isChecked():			
 			self.option1 = 1
 		elif self.radioButton_3.isChecked():			
@@ -345,8 +356,11 @@ class Window(QMainWindow, Ui_MainWindow):
 		n_cores = self.spinBox_2.value()
 		delete_intermediate = self.option1
 
-		#Script		
-		
+		#Script	
+
+		# statistic_list.append("edges")	
+		# statistic_list.append("modulation")
+
 		#default
 		assigned_RAM = self.assigned_RAM                 
 
@@ -400,36 +414,54 @@ class Window(QMainWindow, Ui_MainWindow):
 		format_list = self.items_format
 		type_list = self.items_type
 		tileSize = int(self.comboBox_2.currentText())		
-		pixel_size_sel = float(self.lineEdit_3.text())
-		filename_output = self.lineEdit_2.text()
+		pixel_size_sel0 = self.lineEdit_3.text() #string
+		filename_output0 = self.lineEdit_2.text()
 		output_folder = self.output_folder
 		
-		#Main script					
+		#Main script	
+
+		#Defaults
+		if pixel_size_sel0 == '':
+			pixel_size_sel = 1 #default
+		else:
+			pixel_size_sel = float(pixel_size_sel0)
+
+		if filename_output0 == '':
+			filename_output = 'default_name' #default
+		else:
+			filename_output = filename_output0 
+						
 		file_output = filename_output + ".tif" 
 		output_path = os.path.join(output_folder, file_output)  
-		print(f'The output folder was \n {output_folder}')
+		print(f'The output folder was \n {output_folder}')		
 
 		#Output convention
 		output_ome = "ometiff" in format_list
 		output_dz = "dz" in format_list
+		output_flat = "flat" in format_list
 		output_zstack = "zstack" in type_list
 		output_individuals = "individuals" in type_list
 		condition1 = output_ome == 1 & output_zstack == 1
 		condition2 = output_ome == 1 & output_individuals == 1
 		condition3 = output_dz 		
+		condition4 = output_flat
 
 		if condition1:
 			print('Generating z-stack..')
 			generate_zStack(fileList2, pixel_size_sel, tileSize, output_path)		
 
 		if condition2:
-			print('Generating individual image(s)..')
+			print('Generating individual pyramid(s)..')
 			generate_individualImages(fileList2, pixel_size_sel, tileSize, output_path)
 		
 		if condition3:
-			print('Generating Deep Zoom image(s)..')
-			generate_dz(fileList2, pixel_size_sel, tileSize, output_path)
+			print('Generating Deep Zoom pyramid(s)..')
+			generate_dz(fileList2, tileSize, output_path)
 		
+		if condition4:
+			print('Generating flat images(s)..')
+			generate_flatImages(fileList2, output_path)
+
 		print('Finished.')
 
 	#endregion	
@@ -469,7 +501,7 @@ if __name__ == "__main__":
 	from helperFunctions.mkdir_options import mkdir2
 	from main_functions import delete_intermediate_files, parse_system_info, qListWidget_list
 	from main_functions import read_metadata_function, save_tiles_function, ray_tracing_function, join_rt_tiles_function, join_original_tiles_function
-	from main_functions import generate_zStack, generate_individualImages, generate_dz
+	from main_functions import generate_zStack, generate_individualImages, generate_dz, generate_flatImages
 	
 	#GUI
 	from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog
