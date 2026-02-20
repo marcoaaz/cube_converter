@@ -131,12 +131,12 @@ I acknowledge that most users will not have a VS200 slide scanner and our data a
 ## Issues and future work
 
 - This is a beta version that will soon be improved with user feedback
+- If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out. 
 - I had in mind:
   - Cloud implementation with more cores
   - Using Bio-Formats, the software can support many more light microscopy light microscopy [formats](https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html), e.g., CZI from Zeiss [AxioScan Geo](https://www.zeiss.com/microscopy/en/products/imaging-systems/axioscan-7.html) (Zeiss Microscopy)
   - Implementing ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
-- If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out. 
--Support for Mac OS and Linux is out of my expertise
+- Support for Mac OS and Linux
 
 ## Related papers
 
