@@ -1,12 +1,13 @@
 # Cube Converter
 # The package to process petrographic microscopy multi-angle whole-slide images as ray traced images and 'virtual' z-stacks for next generation image analysis pipelines.
 
-**Version**: 1 (beta)  
+**Version**: 1.1  
+**Binary download**: [Executable link](https://zenodo.org/records/18706798) (for Windows 11)  
 **Author**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
-**Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology  
-**Date**: November 2025  
+**Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology 
+**Date**: 20-February-2026  
 **Citation**: [Acevedo Zamora & Kamber 2023](https://www.mdpi.com/2075-163X/13/2/156)  
-**Previous versions**: [Original repository](https://github.com/marcoaaz/Acevedo-Kamber)  
+**Previous repository**: [Script repository](https://github.com/marcoaaz/Acevedo-Kamber)  
 
 ---
 
@@ -19,7 +20,7 @@ Segmentation has been demonstrated to work with [QuPath](https://qupath.github.i
 Locally, the output intermediate/final images are saved in a structured folder sequence for each input VSI file input (original scans and ray tracing images). The exporation process records the data acquisition and processing metadata for potential future documentation with [OMERO Server](https://www.openmicroscopy.org/omero/). 
 
 <p align="center">
-  <img width=70% height=70% alt="Image" src="https://github.com/user-attachments/assets/b76cd334-3220-4b13-b6d3-80dd5e12c793" />
+  <img width=70% height=70% alt="Image" src="https://github.com/user-attachments/assets/ca4d8760-883e-4abb-a0fb-2171a1ac141b" />
 </p>
 
 ---
@@ -143,5 +144,3 @@ The software depends on open-source as well (see above) and scientific citations
 
   - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. [https://doi.org/10.3390/min13020156   ](https://doi.org/10.3390/min13020156   )
   - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. [https://eprints.qut.edu.au/248815/](https://eprints.qut.edu.au/248815/)
-  - Burke, T. M., Kamber, B. S., & Rowlings, D. (2025). Microscopic investigation of incipient basalt breakdown in soils: implications for selecting products for enhanced rock weathering [Original Research]. Frontiers in Climate, Volume 7 - 2025. [https://doi.org/10.3389/fclim.2025.1572341](https://doi.org/10.3389/fclim.2025.1572341) 
-
