@@ -18,6 +18,8 @@ Date updated: 3-Sep-25, 13-Sep-25
 
 import os
 import sys
+import gc
+
 import numpy as np
 import pandas as pd
 from scipy import ndimage
@@ -49,43 +51,44 @@ def channel_uint8(image_rs3):
 
 	return image_rs4
 
-def find_P_thresholds(input_channel, percentOut, bit_precision):
-	#bit_precision: 8-bit=255; 16-bit=65535
-	
-	percentOut1 = percentOut + 0.005 #medicine
-	# percentOut=0 Error: "65536" of type 'gint' is invalid or out of range for property 'threshold' of type 'gint'
+def find_P_thresholds(input_channel, percentOut, bit_precision = 16):
+	#bit_precision: 8-bit=255; 16-bit=65535		
 
-	calc_depth = (2**bit_precision) -1     
-	min_val = input_channel.min()
-	max_val = input_channel.max()
+	calc_depth = (2**bit_precision) -1  
+	stats = input_channel.stats() #eager pass (load data once)
+	min_val = stats(0, 0)[0] 
+	max_val = stats(1, 0)[0]    
 	 
 	#medicine 1: zero division if weight-decay is too low and no. epochs too high
 	range_val = max((max_val - min_val), 0.1) 
 	ratio = (range_val/calc_depth)
 
-	#Finding percentiles	
-	image_rs1 = (input_channel - min_val) / ratio #0-65355         
-	image_rs2 = image_rs1.cast("uint") #'uchar'=8-bit, 'uint' or 'ushort'=16-bit       
-		
-	th_low = image_rs2.percent(percentOut1) #'int'	
-	th_high = image_rs2.percent(100 - percentOut1)        
+	#medicine 2: 'gint' is invalid or out of range
+	p_low = percentOut + 0.005 
+	p_high = 100 - p_low
+
+	#Finding percentiles (16-bit), 'uchar'=8-bit, 'uint' or 'ushort'=16-bit  	
+	image_rs2 = ((input_channel - min_val) / ratio).cast("ushort") #uint	
+
+	th_low = image_rs2.percent(p_low) #'int'	
+	th_high = image_rs2.percent(p_high)        	
 	
-	#values	
 	th_low_input = th_low*ratio + min_val 
 	th_high_input = th_high*ratio + min_val                    
 
-	#medicine 2: zero division if you are processing an artefact image (e.g., Synchrotron data Flux0)
+	#medicine 3: zero division when processing an artefact image (e.g., Synchrotron XFM Flux0)
 	if th_low_input == th_high_input:
 		th_high_input = th_high_input + 1
+
+	#Warning note: the file handles on Windows often "choke" or the pipeline breaks when using 
+	#random access if the full image has to pass 3 or more times, which causes blacked-out strips.
 
 	return th_low_input, th_high_input
 
 def channel_rescaled(input_channel, min_val, max_val, th_low_input, th_high_input):  
+	#Min-Max Scaling (normalization)
+	#Note: Use when the distribution is not normal and you need to preserve data relationships.
 	#Following: https://au.mathworks.com/help/matlab/ref/rescale.html
-	#Note: capped and uint8 (useful for std, maxIndex, minIndex, PCA)	 
-	  
-	# min_val = 0 #default
-	# max_val = 255
 
 	#Capping
 	input_channel = (input_channel > th_high_input).ifthenelse(th_high_input, input_channel) #true, false
@@ -93,79 +96,57 @@ def channel_rescaled(input_channel, min_val, max_val, th_low_input, th_high_inpu
 
 	#Rescaling
 	output_channel = min_val + (input_channel - th_low_input) * ( (max_val - min_val) / (th_high_input - th_low_input) ) 			
-	# output_channel = image_rs3.cast("uchar") #uint8   	
-
+	
 	return output_channel  
 
 def img_rescaled(image_cropped, percentOut):
-	#Descr. statistics (follows 'tilingAndStacking_v3.py')
+	#Note: Descriptive statistics part follows 'tilingAndStacking_v3.py'	
 	
-	# minimum, maximum, sum, sum of squares, mean, standard deviation, 
-	# x coordinate of minimum, y coordinate of minimum, x coordinate of maximum, y coordinate of maximum  
 	target_W = 5000
 	source_W = image_cropped.width
 	ratio = target_W/source_W
+
 	image_thumbnail = image_cropped.resize(ratio, kernel=pyvips.Kernel.NEAREST)
 	
-	out = pyvips.Image.stats(image_thumbnail)
-	out1 = out.numpy()   	
-	# > 6GB (74Kx45K montage) warning: vips_tracked: out of memory -- size == 3MB	
-	
+	#Materialize the thumbnail to break the pipeline connection to the large image
+	image_thumbnail = image_thumbnail.copy_memory()
+	stats_image = image_thumbnail.stats()
+	# Row 0 = all bands, Row 1 = Band 1, etc.	
+	# Col 0 = minimum, Col 1= maximum, sum, sum of squares, mean, standard deviation, 
+	# x coordinate of minimum, y coordinate of minimum, x coordinate of maximum, y coordinate of maximum  
+
 	n_bands = image_cropped.bands			
 	channel_list_out = []
+
 	for i in range(n_bands):		
 		
 		#Direct indexing
 		channel_temp = image_cropped[i]
 		thumbnail_temp = image_thumbnail[i] #faster computation
 
-		statistic_vals = out1[i+1, :] #channel stats
-		#Note: row 0 has statistics for all bands together
+		min_val = stats_image.getpoint(0, i + 1)[0] #direct fetching		
 
 		#Positive, rescaled, capped and uint8 (useful for std, maxIndex, minIndex, PCA)
-		channel_positive = channel_temp - statistic_vals[0]		
-		thumbnail_positive = thumbnail_temp - statistic_vals[0]
+		channel_positive = channel_temp - min_val	
+		thumbnail_positive = thumbnail_temp - min_val
 
 		th_low_input, th_high_input = find_P_thresholds(thumbnail_positive, percentOut, 16)					
-		channel_positive2 = channel_rescaled(channel_positive, 0, 255, th_low_input, th_high_input) #float
-		channel_positive3 = channel_positive2.cast("uchar") #uint8   	
+		channel_out = channel_rescaled(channel_positive, 0, 255, th_low_input, th_high_input) #float		
 
-		channel_list_out.append(channel_positive3)
+		channel_list_out.append(channel_out.cast("uchar")) #uint8 
+
+		del channel_temp, thumbnail_temp, channel_positive, thumbnail_positive, channel_out  	
 	
 	#RGB
 	image_rescaled = channel_list_out[0].bandjoin(channel_list_out[1:])
 
+	#RAM cleanup
+	del image_thumbnail, stats_image, channel_list_out
+	gc.collect()
+
 	return image_rescaled
 
-def understand_tiling(fileList, pattern, workingDir1):
-	
-	items_str = ['series', 'z', 'x', 'y', 'width', 'height', 'image_path']
-	
-	values = []
-	for filename in fileList:		
-		match = pattern.match(filename) # scan image set (perfect match needed)      
-		
-		if match is None:
-			continue
 
-		item_series = int(match.group(1))
-		item_z = int(match.group(2))    
-		item_x = int(match.group(3))    
-		item_y = int(match.group(4))
-
-		#image size
-		im_temp = pyvips.Image.new_from_file(filename) #must be an image
-		item_width = im_temp.width
-		item_height = im_temp.height
-
-		values.append([item_series, item_z, item_x, item_y, item_width, item_height, filename])
-
-	df = pd.DataFrame(values, columns = items_str)	
-	df1 = df.sort_values(items_str, ascending= [True, True, True, True, True, True, True])
-	
-	df1.to_csv(os.path.join(workingDir1, 'files1.csv'), index=False)
-	
-	return df1
 
 #endregion
 
@@ -211,11 +192,12 @@ def calculate_statistic(tile_temp, sel_stats):
 		elif condition_1 or condition_3:
 			array_idx = np.indices(tile_idx2.shape)
 			last_dim = tile_idx2[array_idx[0], array_idx[1], array_idx[2]]
-			tile_temp2 = tile_temp[array_idx[0], array_idx[1], array_idx[2], last_dim]				
+			tile_temp2 = tile_temp[array_idx[0], array_idx[1], array_idx[2], last_dim]		
+			
 	
-	#Modulation with greyscale (float32)
+	#Modulation based on greyscale PPL/XPL (float32)
 	elif sel_stats == "modulation": 
-	#Follows: Acevedo Zamora et al. (2024) 'stack_spectra_leica_v18_loop.m'
+	#Following: Acevedo Zamora et al. (2024) 'stack_spectra_leica_v18_loop.m'
 	#After: 2011_Axer et al._High-resolution fiber tract reconstruction in the 
 	#human brain by means of three-dimensional polarized light imaging	
 
@@ -238,6 +220,7 @@ def calculate_statistic(tile_temp, sel_stats):
 		max_last_dim = tile_maxIdx[array_idx[0], array_idx[1], array_idx[2]]		
 		tile_min = tile_greyscale[array_idx[0], array_idx[1], array_idx[2], min_last_dim]#tile_temp						 
 		tile_max = tile_greyscale[array_idx[0], array_idx[1], array_idx[2], max_last_dim]		
+
 		tile_retardation = (tile_max - tile_min) / (tile_mean + epsilon)
 		tile_retardation2 = np.clip(tile_retardation, 0, None)
 		
@@ -245,20 +228,24 @@ def calculate_statistic(tile_temp, sel_stats):
 		tile_temp2 = np.concatenate((tile_mean, tile_phase, tile_retardation2), axis=2)		
 
 	#Detecting edges (float32)
-	elif sel_stats == "edges":
+	elif sel_stats == "edges": #this takes x4 longer than modulation
 		colour_mode = 1
 		if colour_mode == 0:
-			tile_temp = np.mean(tile_temp, axis= 2, keepdims=True)
+			tile_edges = np.mean(tile_temp, axis= 2, keepdims=True)
+		else:
+			tile_edges = tile_temp
 
 		# direction_array, coherence_map = build_direction_array(tile_temp)
-		direction_array, coherence_map = build_direction_array_weighted(tile_temp)
-		edge_map = multi_channel_structure_tensor_edge(coherence_map, tile_temp, sigma_grad=1.0, sigma_tensor=3.0)
+		direction_array, coherence_map = build_direction_array_weighted(tile_edges)
+		edge_map = multi_channel_structure_tensor_edge(coherence_map, tile_edges, 
+												 sigma_grad=1.0, sigma_tensor=3.0)
 
 		edge_map2 = np.expand_dims(edge_map, axis=2)
 		tile_temp2 = np.repeat(edge_map2, n_channels, 2) 	
 			
 	else:
 		print('The calculation selected is not available')
+		tile_temp2 = None
 	
 	return tile_temp2
 
@@ -275,8 +262,7 @@ def normalize(arr):
 
 def build_direction_array(tile_data):
 	#Based on 'direction adaptative Pearson correlation coefficient'
-	#2020_Zhang et al._Orthogonal microscopy image acquisition 
-	# analysis technique for rock sections
+	#2020_Zhang et al._Orthogonal microscopy image acquisition analysis technique for rock sections
 
 	step = 1
 
