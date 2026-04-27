@@ -1,7 +1,7 @@
 # Cube Converter
 # The package to process petrographic microscopy multi-angle whole-slide images as ray traced images and 'virtual' z-stacks for next generation image analysis pipelines.
 
-**Version**: 1.1  
+**Version**: 1.2  
 **Binary download**: [Windows 11](https://zenodo.org/records/19689989)  
 **Author**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
 **Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology   
@@ -28,7 +28,7 @@ Locally, the output intermediate/final images are saved in a structured folder s
 ## 🚀 Features
 
 ### Core Functionality
-- **Graphical User Interface (GUI) following two steps** for processing raw images without having licensed software (the instrument software costs 10K AUD)
+- **Graphical User Interface (GUI) following two steps** for processing raw images without having licensed software (costing around 10K AUD)
 - **High reliability and performance** due to parallelised implementation
 - Polarised microscopy processor
   - **Basic image processing** to allow changing an image pyramid level, tile size, and output brightness
@@ -91,7 +91,7 @@ The current Cube converter version was demonstrated to work in Windows 11 OS.
   
   This is required for adopting what was written in the "main.spec" description and is provided to pyinstaller during compilation.  
 
-I acknowledge that most users will not have a VS200 slide scanner and our data acquisition routines. Currently, these are available in two laboratories in Queensland, see ([CARF](https://www.qut.edu.au/research/why-qut/infrastructure/central-analytical-research-facility), [Centre for Microscopy and Microanalysis](https://cmm.centre.uq.edu.au/olympus-vs-200-optical-microscope)). Please, let me know if you know of additional locations with geoscience focus or would like to try the technology to a different field. Under a scientific collaboration project, I could visit your laboratory and make your scanner compatible with Cube converter software.
+I acknowledge that most users will not have a VS200 slide scanner and our data acquisition routines. Currently, these are available in two laboratories in Queensland, see ([CARF](https://www.qut.edu.au/research/why-qut/infrastructure/central-analytical-research-facility), [Centre for Microscopy and Microanalysis](https://cmm.centre.uq.edu.au/olympus-vs-200-optical-microscope)). Please, let me know if you know of additional locations with geoscience focus or if you would like to try the technology to a different field. Under a scientific collaboration project, I could visit your laboratory and make your scanner compatible with Cube converter software.
 
 
 ---
@@ -135,6 +135,7 @@ This is a beta version that will soon be improved with user feedback. If you are
 - I had in mind:
   - Cloud implementation with more cores
   - Using Bio-Formats, the software can support many more light microscopy light microscopy [formats](https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html), e.g., CZI from Zeiss [AxioScan Geo](https://www.zeiss.com/microscopy/en/products/imaging-systems/axioscan-7.html) (Zeiss Microscopy). A first step has been taken by Dr. Nicholas Condon with his [ReMInD](https://github.com/NickCondon/ReMInD/) software for metadata extraction.
+  - Implementation of Cube Converter for compatibility with a routine using the 3D printed [PyAutoStage](https://sites.google.com/msu.edu/piautostage/home) ([Steiner and Rooney, 2021](https://doi.org/10.1029/2021GC009693)).
   - Continue the implementation of ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
 
 If you are programmer, please support us translating the program for compilation in Mac OS and Linux.
