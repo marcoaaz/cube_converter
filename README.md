@@ -2,25 +2,25 @@
 # The package to process petrographic microscopy multi-angle whole-slide images as ray traced images and 'virtual' z-stacks for next generation image analysis pipelines.
 
 **Version**: 1.1  
-**Binary download**: [Executable link](https://zenodo.org/records/18706798) (for Windows 11)  
+**Binary download**: [Windows 11](https://zenodo.org/records/19689989)  
 **Author**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
-**Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology 
-**Date**: 20-February-2026  
+**Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology   
+**Date**: 28-April-2026  
 **Citation**: [Acevedo Zamora & Kamber 2023](https://www.mdpi.com/2075-163X/13/2/156)  
-**Previous repository**: [Script repository](https://github.com/marcoaaz/Acevedo-Kamber)  
+**Original scripts**: [old repository](https://github.com/marcoaaz/Acevedo-Kamber)  
 
 ---
 
 ## 📖 Overview
 
-Cube converter allows microscopists and researchers to process full resolution polarised microscopy experiments configured in Evident [VS200 slide scanner](https://evidentscientific.com/en/products/slide-scanners/vs200) (acquisition routines after Acevedo Zamora & Kamber, 2023). The tool can represent a set of multi-angle polarised images (plane-polarised (PPL) pleochroism and cross-polarised (XPL) birefringence) as summary "ray tracing" (descriptive statistics: max, min, std, mean, index of max/min) images. For example, XPL-max looks the same as XPL circular polarisation without having to install extra optical components in your microscope. These images are friendlier for pixel/object classification/segmentation tasks due to the homogenisation of colours regarless of "virtual" stage rotation. 
+Cube converter allows geoscientific microscopists and researchers to process full resolution polarised microscopy experiments configured in Evident [VS200 slide scanner](https://evidentscientific.com/en/products/slide-scanners/vs200) (acquisition routines after Acevedo Zamora & Kamber, 2023). The tool can represent a set of multi-angle polarised images (plane-polarised (PPL) pleochroism and cross-polarised (XPL) birefringence) as summary "ray tracing" (descriptive statistics: max, min, std, mean, index of max/min) images. For example, XPL-max looks the same as XPL circular polarisation without having to install extra optical components in your microscope. These images are friendlier for pixel/object classification/segmentation tasks due to the homogenisation of colours regarless of "virtual" stage rotation. 
 
-Segmentation has been demonstrated to work with [QuPath](https://qupath.github.io/) ([Bankhead et al., 2017](https://www.nature.com/articles/s41598-017-17204-5)) using the [pixel classifier](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) tool. Segmenting multi-channel images with reflected light (RL), PPL-max, and XPL-max only has achieved results comparable to SEM-based Automated mineralogy systems when having contrasting mineralogy (that ~invariant to crystal orientation).
+Segmentation has been demonstrated to work with [QuPath](https://qupath.github.io/) ([Bankhead et al., 2017](https://www.nature.com/articles/s41598-017-17204-5)) with extensive use of the [Pixel Classifier](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) following the elaboration of multi-channel images with [Image Combiner Warpy](https://github.com/BIOP/qupath-biop-catalog). The segmentation of integrated reflected light (RL), PPL-max, and XPL-max only has achieved results comparable to SEM-based Automated mineralogy systems. Optical microscopy reaches good results as a standalone technique when the sample has contrasting pleochroism and interference colours that are ~invariant to crystal orientation.
 
 Locally, the output intermediate/final images are saved in a structured folder sequence for each input VSI file input (original scans and ray tracing images). The exporation process records the data acquisition and processing metadata for potential future documentation with [OMERO Server](https://www.openmicroscopy.org/omero/). 
 
 <p align="center">
-  <img width=70% height=70% alt="Image" src="https://github.com/user-attachments/assets/ca4d8760-883e-4abb-a0fb-2171a1ac141b" />
+  <img width=80% height=80% alt="Image" src="https://github.com/user-attachments/assets/5f8241f9-ee7d-41e4-9f5a-5cf71db7f3d0" />
 </p>
 
 ---
@@ -100,9 +100,9 @@ I acknowledge that most users will not have a VS200 slide scanner and our data a
 
 ### Cube converter v1 (main.py)
 
-- File to call the functionality and app interface (cubeConverter_v3.py)
-- Suitable for reading and processing VSI files (CellSense format) saved from Evident VS200 slide scanner (at QUT)
-- All metadata extraction features included
+- Suitable for reading and processing VSI files (CellSense format) saved from Evident VS200 slide scanner at QUT (acquisition protocols by Acevedo Zamora and Kamber (2023)).
+- All experiment and image processing metadata are saved for reproducibility.
+- The multi-modal Z-stack generator (right hand side of the interface) is able to save OME-TIFF files to be opened in almost any software (e.g., QuPath, Evident software suite)
   
 ---
 
@@ -125,22 +125,27 @@ I acknowledge that most users will not have a VS200 slide scanner and our data a
 ## 📦 Packaged Executable
 
 - Cube Converter v1.exe works for Windows 11 and it is not fully self contained (for efficiency while opening the app)
-- A Terminal will be open to indicate the progress of processing your file
+- A Terminal opened next to the main window indicates the progress of processing your file
 - An Error handling mechanism pops up if the user inputs a wrong value in the GUI options. For persistent errors, please, send me a screenshot
 
 ## Issues and future work
 
-- This is a beta version that will soon be improved with user feedback
-- If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out. 
+This is a beta version that will soon be improved with user feedback. If you are not familiar to coding but you have proposals/ideas, you are welcome to reach out because this project is still growing. 
+
 - I had in mind:
   - Cloud implementation with more cores
-  - Using Bio-Formats, the software can support many more light microscopy light microscopy [formats](https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html), e.g., CZI from Zeiss [AxioScan Geo](https://www.zeiss.com/microscopy/en/products/imaging-systems/axioscan-7.html) (Zeiss Microscopy)
-  - Implementing ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
-- Support for Mac OS and Linux
+  - Using Bio-Formats, the software can support many more light microscopy light microscopy [formats](https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html), e.g., CZI from Zeiss [AxioScan Geo](https://www.zeiss.com/microscopy/en/products/imaging-systems/axioscan-7.html) (Zeiss Microscopy). A first step has been taken by Dr. Nicholas Condon with his [ReMInD](https://github.com/NickCondon/ReMInD/) software for metadata extraction.
+  - Continue the implementation of ray tracing using the Pipeline for optic-axis mapping (POAM) [(Acevedo Zamora et al., 2024)](https://onlinelibrary.wiley.com/doi/10.1111/jmi.13284)
+
+If you are programmer, please support us translating the program for compilation in Mac OS and Linux.
 
 ## Related papers
 
 The software depends on open-source as well (see above) and scientific citations/feedback. The following research papers already have contributed to its evolution:
 
-  - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. [https://doi.org/10.3390/min13020156   ](https://doi.org/10.3390/min13020156   )
+  - Acevedo Zamora, M. A., & Kamber, B. S. (2023). Petrographic Microscopy with Ray Tracing and Segmentation from Multi-Angle Polarisation Whole-Slide Images. Minerals, 13(2), 156. [https://doi.org/10.3390/min13020156   ](https://doi.org/10.3390/min13020156)  
   - Acevedo Zamora, M. (2024). Petrographic microscopy of geologic textural patterns and element-mineral associations with novel image analysis methods [Thesis by publication, Queensland University of Technology]. Brisbane. [https://eprints.qut.edu.au/248815/](https://eprints.qut.edu.au/248815/)
+
+
+Thanks.  
+Marco Acevedo
