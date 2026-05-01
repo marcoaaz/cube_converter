@@ -2,7 +2,7 @@
 
 **Version**: 1.2  
 **Binary download**: [Windows 11](https://zenodo.org/records/19689989)  
-**Author**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
+**Developer**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
 **Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology   
 **Date**: 28-April-2026  
 **Citation**: [Acevedo Zamora & Kamber 2023](https://www.mdpi.com/2075-163X/13/2/156)  
