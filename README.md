@@ -2,6 +2,7 @@
 
 **Version**: 1.2  
 **Binary download**: [Windows 11](https://zenodo.org/records/19689989)  
+**Documentation**: [Read the Docs](https://marcoaaz.github.io/optical_phasemaps/cube_converter.html)  
 **Developer**: Dr Marco Acevedo Z. (maaz.geologia@gmail.com)  
 **Affiliation**: School of Earth and Atmospheric Sciences, Queensland University of Technology   
 **Date**: 28-April-2026  
